@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <t t-name="hotel_management_odoo.report_sale_order">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2>Rapport des Ventes</h2>
+                    <br/>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sl No.</th>
+                                <th>Guest Name</th>
+                                <th>Check-In</th>
+                                <th>Check-Out</th>
+                                <th>Reference No.</th>
+                                <th>Amount Total (FCFA)</th>
+                            </tr>
+                        </thead>
+                        <t t-set="i" t-value="0"/>
+                        <t t-set="sum_total" t-value="0"/>
+                        <t t-set="sum_food" t-value="0"/>
+                        <t t-set="sum_service" t-value="0"/>
+                        <t t-set="sum_room" t-value="0"/>
+                        <t t-foreach="booking" t-as="line">
+                            <t t-set="i" t-value="i+1"/>
+                            <tr>
+                                <td>
+                                    <t t-esc="i"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line['partner_id']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line['checkin_date']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line['checkin_date']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line['name']"/>
+                                </td>
+                                <td>
+                                    <t t-esc="'{:,.0f}'.format(line['amount_total']).replace(',', ' ')"/>
+                                </td>
+
+                                 <!--<t t-set="sum_total" t-value="sum_total+line['amount_total']"/>-->
+                                 <!--<t t-set="sum_food" t-value="sum_food+line['amount_total_food']"/>-->
+                                 <!--<t t-set="sum_room" t-value="sum_room+line['amount_total_room']"/>-->
+                                 <!--<t t-set="sum_service" t-value="sum_service+line['amount_total_service']"/>-->
+                            </tr>
+
+                        </t>
+                        <tr class="border-black o_subtotal">
+                          <td colspan="5">
+                          <b>TOTAL</b></td>
+                          <td class="text-right" colspan="2">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+                    </table>
+
+                    <center>
+                      <table class="border-black o_subtotal">
+                          <tr>
+                          <td><b>Chiffre d'Affaires Boisson et Repas</b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_food).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                         <tr>
+                          <td><b>Hebergement </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_room).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><b> Payement Dette </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><b> Vente à Credit </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                         <tr>
+                          <td><b> Total Caisse  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                         <tr>
+                          <td><b> Total Caisse  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><b> Caisse initiale  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><b>Sortie  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><b> Virement Caisse  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td><b> Fond de  Caisse  </b></td>
+                          <td class="text-right">
+                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                          </td>
+                        </tr>
+
+
+                  </table>
+                    </center>
+                </div>
+            </t>
+        </t>
+    </t>
+</odoo>
