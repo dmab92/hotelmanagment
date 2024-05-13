@@ -1,23 +1,6 @@
 # -*- coding: utf-8 -*-
 ################################################################################
 #
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2023-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
-#    Author: Unnimaya C O (odoo@cybrosys.com)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
 ################################################################################
 {
     'name': 'Hotel Repos Roi',
@@ -28,10 +11,10 @@
     'description': """The module helps you to manage rooms, amenities, 
      services, food, events and vehicles. End Users can book rooms and reserve 
      foods from hotel.""",
-    'author': 'Cybrosys Techno Solutions',
-    'company': 'Cybrosys Techno Solutions',
-    'maintainer': 'Cybrosys Techno Solutions',
-    'website': 'https://www.cybrosys.com',
+    'author': 'Boris MENI',
+    'company': 'MT CONSULTING SARL',
+    'maintainer': 'MT CONSULTING SARL',
+    'website': 'https://www.mtconsulting.cm',
     'depends': ['base','account', 'event', 'fleet', 'lunch'],
     #'depends': ['base'],
     'data': [
@@ -74,3 +57,4 @@
     'auto_install': False,
     'application': True,
 }
+
