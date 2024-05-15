@@ -463,10 +463,12 @@
               name="Details des Hebergements"
                groups="hotel_management_odoo.hotel_group_admin"
               sequence="11"
+
               parent="hotel_management_menu_root"
               action="room_booking_line_action"/>
 
     <menuitem id="menu_product_stock_1"
+              groups="hotel_management_odoo.hotel_group_admin"
               name="Stock" action="stock.action_product_stock_view"
             parent="hotel_management_menu_root" />
 </odoo>
