@@ -190,53 +190,53 @@ class RoomBooking(models.Model):
                                           help="Untaxed Amount for Food",
                                           compute='_compute_amount_untaxed',
                                           tracking=5)
-    amount_untaxed_event = fields.Monetary(string="Event Untaxed",
+    amount_untaxed_event = fields.Monetary(string="Event Untaxed", store=True,
                                            help="Untaxed Amount for Event",
                                            compute='_compute_amount_untaxed',
                                            tracking=5)
     amount_untaxed_service = fields.Monetary(
         string="Service Untaxed", help="Untaxed Amount for Service",
-        compute='_compute_amount_untaxed', tracking=5)
+        compute='_compute_amount_untaxed',store=True, tracking=5)
     amount_untaxed_fleet = fields.Monetary(string="Amount Untaxed",
                                            help="Untaxed amount for Fleet",
-                                           compute='_compute_amount_untaxed',
+                                           compute='_compute_amount_untaxed', store=True,
                                            tracking=5)
     amount_taxed_room = fields.Monetary(string="Rom Tax", help="Tax for Room",
-                                        compute='_compute_amount_untaxed',
+                                        compute='_compute_amount_untaxed', store=True,
                                         tracking=5)
     amount_taxed_food = fields.Monetary(string="Food Tax", help="Tax for Food",
-                                        compute='_compute_amount_untaxed',
+                                        compute='_compute_amount_untaxed',store=True,
                                         tracking=5)
     amount_taxed_event = fields.Monetary(string="Event Tax",
                                          help="Tax for Event",
-                                         compute='_compute_amount_untaxed',
+                                         compute='_compute_amount_untaxed', store=True,
                                          tracking=5)
     amount_taxed_service = fields.Monetary(string="Service Tax",
-                                           compute='_compute_amount_untaxed',
+                                           compute='_compute_amount_untaxed', store=True,
                                            help="Tax for Service", tracking=5)
     amount_taxed_fleet = fields.Monetary(string="Fleet Tax",
-                                         compute='_compute_amount_untaxed',
+                                         compute='_compute_amount_untaxed', store=True,
                                          help="Tax for Fleet", tracking=5)
     amount_total_room = fields.Monetary(string="Total Amount for Room",
                                         compute='_compute_amount_untaxed',
                                         help="This is the Total Amount for "
-                                             "Room", tracking=5)
+                                             "Room", store=True, tracking=5)
     amount_total_food = fields.Monetary(string="Total Amount for Food",
                                         compute='_compute_amount_untaxed',
                                         help="This is the Total Amount for "
-                                             "Food", tracking=5)
+                                             "Food",  store=True,tracking=5)
     amount_total_event = fields.Monetary(string="Total Amount for Event",
                                          compute='_compute_amount_untaxed',
                                          help="This is the Total Amount for "
-                                              "Event", tracking=5)
+                                              "Event", store=True, tracking=5)
     amount_total_service = fields.Monetary(string="Total Amount for Service",
                                            compute='_compute_amount_untaxed',
                                            help="This is the Total Amount for "
-                                                "Service", tracking=5)
+                                                "Service", store=True, tracking=5)
     amount_total_fleet = fields.Monetary(string="Total Amount for Fleet",
                                          compute='_compute_amount_untaxed',
-                                         help="This is the Total Amount for "
-                                              "Fleet", tracking=5)
+                                         help="This is the Total Amount for " 
+                                              "Fleet",store=True, tracking=5)
 
     @api.model
     def create(self, vals_list):
@@ -269,6 +269,7 @@ class RoomBooking(models.Model):
                 continue
             order = order.with_company(order.company_id)
             order.pricelist_id = order.partner_id.property_product_pricelist
+
 
     @api.depends('room_line_ids.price_subtotal', 'room_line_ids.price_tax',
                  'room_line_ids.price_total',
@@ -305,10 +306,12 @@ class RoomBooking(models.Model):
         fleet_lines = self.vehicle_line_ids
         event_lines = self.event_line_ids
         booking_list = []
-        account_move_line = self.env['account.move.line'].search_read(
-            domain=[('ref', '=', self.name),
-                    ('display_type', '!=', 'payment_term')],
-            fields=['name', 'quantity', 'price_unit', 'product_type'], )
+        for rec in self:
+            account_move_line = self.env['account.move.line'].search_read(domain=[('ref', '=', rec.name), ('display_type', '!=', 'payment_term')],
+            fields=['name', 'quantity', 'price_unit', 'product_type'])
+
+        #account_move_line = self.env['account.move.line'].search([('ref', '=', self.name)])
+
         for rec in account_move_line:
             del rec['id']
         if room_lines:

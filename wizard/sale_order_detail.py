@@ -43,19 +43,19 @@ class SaleOrderWizard(models.TransientModel):
         """Button action for creating Sale Order Pdf Report"""
         data = {
             'booking': self.generate_data(),
+            'checkin_date': self.checkin_date,
+            'checkout_date': self.checkout_date,
         }
         return self.env.ref(
             'hotel_management_odoo.action_report_sale_order').report_action(
             self, data=data)
 
     def action_sale_order_pdf(self):
-        if self.checkin_date >= self.checkout_date:
-            raise ValidationError(_(
-                'Check-in date should be less than Check-out date'))
+
         data = {
+            'booking': self.generate_data(),
             'checkin_date': self.checkin_date,
             'checkout_date': self.checkout_date,
-
         }
         return self.env.ref(
             'hotel_management_odoo.action_report_sale_order').report_action(
@@ -119,7 +119,7 @@ class SaleOrderWizard(models.TransientModel):
                     'Check-in date should be less than Check-out date'))
         if self.checkin_date:
             domain.append(('checkin_date', '>=', self.checkin_date), )
-        if self.checkout:
+        if self.checkout_date:
             domain.append(('checkout_date', '<=', self.checkout_date), )
         room_booking = self.env['room.booking'].search_read(domain=domain,
                                                             fields=[

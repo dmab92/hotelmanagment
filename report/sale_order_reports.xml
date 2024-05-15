@@ -15,137 +15,177 @@
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure"/>
-                    <h2>Rapport des Ventes</h2>
+                    <h2>Rapport des ventes pour la periode du <span t-esc="datas['checkin_date']" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                 AU
+                                <span t-esc="datas['checkout_date']" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                <br/></h2>
                     <br/>
+
+                    <center>  <h2>HEBERGEMENTS  </h2></center>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Sl No.</th>
-                                <th>Guest Name</th>
-                                <th>Check-In</th>
-                                <th>Check-Out</th>
-                                <th>Reference No.</th>
-                                <th>Amount Total (FCFA)</th>
+                                <th>No</th>
+                                <th>Type</th>
+                                <th>Quantité</th>
+                                <th>PU</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <t t-set="i" t-value="0"/>
                         <t t-set="sum_total" t-value="0"/>
-                        <t t-set="sum_food" t-value="0"/>
-                        <t t-set="sum_service" t-value="0"/>
-                        <t t-set="sum_room" t-value="0"/>
-                        <t t-foreach="booking" t-as="line">
-                            <t t-set="i" t-value="i+1"/>
+                        <t t-set="i" t-value="i+1"/>
                             <tr>
                                 <td>
-                                    <t t-esc="i"/>
+                                    1
                                 </td>
                                 <td>
-                                    <t t-esc="line['partner_id']"/>
+                                     Sieste 5 000
                                 </td>
                                 <td>
-                                    <t t-esc="line['checkin_date']"/>
+                                    Nombre sieste 5K
                                 </td>
                                 <td>
-                                    <t t-esc="line['checkin_date']"/>
+                                    5 000
                                 </td>
                                 <td>
-                                    <t t-esc="line['name']"/>
-                                </td>
-                                <td>
-                                    <t t-esc="'{:,.0f}'.format(line['amount_total']).replace(',', ' ')"/>
+                                    Total sieste 5k
                                 </td>
 
-                                 <!--<t t-set="sum_total" t-value="sum_total+line['amount_total']"/>-->
-                                 <!--<t t-set="sum_food" t-value="sum_food+line['amount_total_food']"/>-->
-                                 <!--<t t-set="sum_room" t-value="sum_room+line['amount_total_room']"/>-->
-                                 <!--<t t-set="sum_service" t-value="sum_service+line['amount_total_service']"/>-->
                             </tr>
 
-                        </t>
+                            <tr>
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                     Sieste 7000
+                                </td>
+                                <td>
+                                    Nombre sieste 7K
+                                </td>
+                                <td>
+                                     7 000
+                                </td>
+                                <td>
+                                    Total sietes 7k
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    3
+                                </td>
+                                <td>
+                                     Nuitee 10000
+                                </td>
+                                <td>
+                                    Nombre sieste 10K
+                                </td>
+                                <td>
+                                    10 000
+                                </td>
+                                <td>
+                                    Total sietes 10k
+                                </td>
+
+                            </tr>
+
+                             <tr>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                     Nuitee 12000
+                                </td>
+                                <td>
+                                    Nombre sieste 12K
+                                </td>
+                                <td>
+                                    12 000
+                                </td>
+                                <td>
+                                     CA  sietes 14k
+                                </td>
+                            </tr>
+
                         <tr class="border-black o_subtotal">
-                          <td colspan="5">
-                          <b>TOTAL</b></td>
+                          <td colspan="4">
+                          <b>CA HEBERGEMENTS</b></td>
                           <td class="text-right" colspan="2">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
+                              <h5>    <span t-esc="'{:,.0f}'.format(amount_untaxed_room).replace(',', ' ')"/>  FCFA</h5>
                           </td>
                         </tr>
+
                     </table>
 
-                    <center>
-                      <table class="border-black o_subtotal">
-                          <tr>
-                          <td><b>Chiffre d'Affaires Boisson et Repas</b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_food).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                    <center>  <h2>RESTAURANT  </h2>
+                     <table class="table">
+                      <tr>
+                        <td>  <b>CA Boisson </b></td>
+                        <td>  <b> 000000000000 :  FCFA </b></td>
+                      </tr>
+                      <tr>
+                        <td>  <b>CA Nouriture </b></td>
+                        <td>  <b> 000000000000 :  FCFA </b></td>
+                      </tr>
 
-                         <tr>
-                          <td><b>Hebergement </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_room).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                       <tr>
+                        <td>  <b>CA RESTAURANT : </b></td>
+                        <td>  <b> <span t-esc="'{:,.0f}'.format(total_resto).replace(',', ' ')"/> FCFA </b></td>
+                      </tr>
 
-                        <tr>
-                          <td><b> Payement Dette </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                      </table>
 
-                        <tr>
-                          <td><b> Vente à Credit </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                       <h2>SERVICES</h2>
+                      <table class="table">
+                      <tr>
+                        <td>  <b>CA PISCINE </b></td>
+                        <td>  <b> 000000000000 :  FCFA </b></td>
+                      </tr>
+                      <tr>
+                        <td>  <b>CA SALLE </b></td>
+                        <td>  <b> 000000000000 :  FCFA </b></td>
+                      </tr>
 
-                         <tr>
-                          <td><b> Total Caisse  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                       <tr>
+                        <td>  <b>CA  TOTAL SERVICES </b></td>
+                        <td>  <b> <span t-esc="'{:,.0f}'.format(total_service).replace(',', ' ')"/> :  FCFA </b></td>
+                      </tr>
 
-                         <tr>
-                          <td><b> Total Caisse  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td><b> Caisse initiale  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td><b>Sortie  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td><b> Virement Caisse  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+                      </table>
 
 
-                        <tr>
-                          <td><b> Fond de  Caisse  </b></td>
-                          <td class="text-right">
-                              <h5> <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/></h5>
-                          </td>
-                        </tr>
+
+                   <h2>SORTIES</h2>
+                   <table class="table">
+                     <tr> <td>Sorties</td>
+
+                          <td> <span t-esc="'{:,.0f}'.format(total_sortie).replace(',', ' ')"/>   FCFA </td>
 
 
-                  </table>
+                     </tr>
+                     </table>
+
+
+                    <h2> BILAN</h2>
+                    <table class="table">
+                      <tr>
+                        <td>  <b>CA TOTAL </b></td>
+                        <td>  <b> 000000000000 :  FCFA </b></td>
+                      </tr>
+                      <tr>
+                        <td>  <b>TOTAL Sorties </b></td>
+                        <td>  <b>     <span t-esc="'{:,.0f}'.format(total_sortie).replace(',', ' ')"/>    FCFA </b></td>
+                      </tr>
+
+                       <tr>
+                        <td>  <b>BENEFICES REALISES </b></td>
+                        <td>  <b> <span t-esc="'{:,.0f}'.format(total_sortie-1000).replace(',', ' ')"/>   FCFA </b></td>
+                      </tr>
+
+                      </table>
+
                     </center>
                 </div>
             </t>
