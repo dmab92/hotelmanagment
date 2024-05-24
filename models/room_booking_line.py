@@ -1,26 +1,5 @@
 # -*- coding: utf-8 -*-
-################################################################################
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#
-#    Copyright (C) 2023-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
-#    Author: Unnimaya C O (odoo@cybrosys.com)
-#
-#    You can modify it under the terms of the GNU LESSER
-#    GENERAL PUBLIC LICENSE (LGPL v3), Version 3.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU LESSER GENERAL PUBLIC LICENSE (LGPL v3) for more details.
-#
-#    You should have received a copy of the GNU LESSER GENERAL PUBLIC LICENSE
-#    (LGPL v3) along with this program.
-#    If not, see <http://www.gnu.org/licenses/>.
-#
-################################################################################
 from datetime import datetime
-
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import ValidationError
 
@@ -115,7 +94,8 @@ class RoomBookingLine(models.Model):
                                   ('virement', 'VIREMENT'),
 
                                   ] ,default='cash', string="Mode paiement")
-    #user = fields.Many2one("res.users", "Receptionist",default=lambda self: self.env.user )
+
+    date_order = fields.Datetime('Date d\'énregistrement', default=fields.Datetime.now())
 
     # hour_qty = fields.Float(string="Number of hours",
     #                         help="Difrrence beetewen hours", readonly=True, )

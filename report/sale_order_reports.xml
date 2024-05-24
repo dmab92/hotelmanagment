@@ -13,7 +13,7 @@
     <template id="report_sale_order">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
-                <div class="page">
+               <div class="page">
                     <div class="oe_structure"/>
                     <h2>Rapport des ventes pour la periode du <span t-esc="datas['checkin_date']" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                                  AU
@@ -21,99 +21,53 @@
                                 <br/></h2>
                     <br/>
 
-                    <center>  <h2>HEBERGEMENTS  </h2></center>
+                    <center>  <h3>HEBERGEMENTS  </h3></center>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Type</th>
-                                <th>Quantité</th>
                                 <th>PU</th>
+                                <th>Quantité</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <t t-set="i" t-value="0"/>
+                        <t t-set="index" t-value="1"/>
                         <t t-set="sum_total" t-value="0"/>
-                        <t t-set="i" t-value="i+1"/>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                     Sieste 5 000
-                                </td>
-                                <td>
-                                    Nombre sieste 5K
-                                </td>
-                                <td>
-                                    5 000
-                                </td>
-                                <td>
-                                    Total sieste 5k
-                                </td>
 
-                            </tr>
+                    <tr t-foreach="booking_details" t-as="line" class="border-black">
+                            <td class="text-left"><span t-esc="index"/></td>
+                            <!--<td class="text-left">NUITE/SIESTE</td>-->
 
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                     Sieste 7000
-                                </td>
-                                <td>
-                                    Nombre sieste 7K
-                                </td>
-                                <td>
-                                     7 000
-                                </td>
-                                <td>
-                                    Total sietes 7k
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                     Nuitee 10000
-                                </td>
-                                <td>
-                                    Nombre sieste 10K
-                                </td>
-                                <td>
-                                    10 000
-                                </td>
-                                <td>
-                                    Total sietes 10k
-                                </td>
+                            <t t-if="prices[index] &gt;=10000">
+                                <td>NUITE</td>
+                            </t>
+                            <t t-else="">
+                              <td>SIESTE</td>
+                            </t>
 
-                            </tr>
+                            <!--<td class="text-left">  <span t-esc="'{:,.0f}'.format(line['list_price']).replace(',', ' ')"/> </td>-->
+                            <!--<td class="text-left">  <span t-esc="'{:,.0f}'.format(line['uom_qty']).replace(',', ' ')"/> </td>-->
 
-                             <tr>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                     Nuitee 12000
-                                </td>
-                                <td>
-                                    Nombre sieste 12K
-                                </td>
-                                <td>
-                                    12 000
-                                </td>
-                                <td>
-                                     CA  sietes 14k
-                                </td>
-                            </tr>
+                            <td class="text-left">  <span t-esc="'{:,.0f}'.format(prices[index]).replace(',', ' ')"/> </td>
+                            <td class="text-left">  <span t-esc="'{:,.0f}'.format(qtys[index]).replace(',', ' ')"/> </td>
+
+                            <!--<td class="text-left">  <span t-esc="'{:,.0f}'.format(line['list_price']*line['uom_qty]).replace(',', ' ')"/> </td>-->
+
+
+                            <td class="text-left">  <span t-esc="'{:,.0f}'.format(prices[index]*qtys[index]).replace(',', ' ')"/> </td>
+
+                            <t t-set="index" t-value="index+1"/>
+                            <t t-set="sum_total" t-value=" sum_total + prices[index]*qtys[index]"/>
+
+                    </tr>
 
                         <tr class="border-black o_subtotal">
                           <td colspan="4">
                           <b>CA HEBERGEMENTS</b></td>
                           <td class="text-right" colspan="2">
-                              <h5>    <span t-esc="'{:,.0f}'.format(amount_untaxed_room).replace(',', ' ')"/>  FCFA</h5>
+                              <h5>    <span t-esc="'{:,.0f}'.format(sum_total).replace(',', ' ')"/>  FCFA</h5>
                           </td>
                         </tr>
 
@@ -191,52 +145,5 @@
             </t>
         </t>
     </template>
-    <!--    Sale order report template-->
-<!--    <template id="report_sale_order">-->
-<!--        <t t-call="web.html_container">-->
-<!--            <t t-call="web.external_layout">-->
-<!--                <div class="page">-->
-<!--                    <div class="oe_structure"/>-->
-<!--                    <h2>Sale Order</h2>-->
-<!--                    <br/>-->
-<!--                    <table class="table">-->
-<!--                        <thead>-->
-<!--                            <tr>-->
-<!--                                <th>Sl No.</th>-->
-<!--                                <th>Guest Name</th>-->
-<!--                                <th>Check-In</th>-->
-<!--                                <th>Check-Out</th>-->
-<!--                                <th>Reference No.</th>-->
-<!--                                <th>Amount Total</th>-->
-<!--                            </tr>-->
-<!--                        </thead>-->
-<!--                        <t t-set="i" t-value="0"/>-->
-<!--                        <t t-foreach="booking" t-as="line">-->
-<!--                            <t t-set="i" t-value="i+1"/>-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="i"/>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="line['partner_id']"/>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="line['checkin_date']"/>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="line['checkin_date']"/>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="line['name']"/>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <t t-esc="line['amount_total']"/>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </t>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--            </t>-->
-<!--        </t>-->
-<!--    </template>-->
+
 </odoo>

@@ -103,6 +103,7 @@
                                         'default_checkout_date':checkout_date,
                                         'default_uom_qty':duration}">
                                 <tree editable="bottom">
+                                    <field name="date_order" readonly="1"/>
                                     <field name="user" readonly="1"/>
                                     <field name="room_id"
                                            string="Room"
@@ -463,7 +464,6 @@
               name="Details des Hebergements"
                groups="hotel_management_odoo.hotel_group_admin"
               sequence="11"
-
               parent="hotel_management_menu_root"
               action="room_booking_line_action"/>
 
